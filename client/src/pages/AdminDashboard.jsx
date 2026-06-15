@@ -1,7 +1,7 @@
  import { useState, useEffect } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
-
+import { API_URL } from "../config";
 function AdminDashboard() {
   const [customerCount, setCustomerCount] = useState(0);
   const [products, setProducts] = useState([]);
@@ -31,13 +31,13 @@ function AdminDashboard() {
 
   const fetchData = async () => {
     try {
-      const customerRes = await axios.get("http://localhost:5000/api/users");
+      const customerRes = await axios.get(`${API_URL}/api/users`);
       setCustomers(customerRes.data);
 
-      const countRes = await axios.get("http://localhost:5000/api/users/count");
+      const countRes = await axios.get(`${API_URL}/api/users/count`);
       setCustomerCount(countRes.data.totalCustomers);
 
-      const productRes = await axios.get("http://localhost:5000/api/products");
+      const productRes = await axios.get(`${API_URL}/api/products`);
       setProducts(productRes.data);
     } catch (error) {
       console.log(error); 
@@ -53,7 +53,7 @@ function AdminDashboard() {
 
   const handleDeleteProduct = async (id) => {
     try {
-      await axios.delete(`http://localhost:5000/api/products/${id}`);
+      await axios.delete(`${API_URL}/api/products/${id}`);
       alert("Product Deleted");
       fetchData();
     } catch (error) {
@@ -65,7 +65,7 @@ function AdminDashboard() {
   const addProduct = async (e) => {
     e.preventDefault();
     try {
-      await axios.post("http://localhost:5000/api/products/add", productData);
+      await axios.post(`${API_URL}/api/products/add`, productData);
       alert("Product Added Successfully");
       setProductData({ name: "", description: "", price: "", image: "" });
       fetchData();
@@ -77,7 +77,7 @@ function AdminDashboard() {
 
   const updateProduct = async () => {
     try {
-      await axios.put(`http://localhost:5000/api/products/${editingProduct._id}`, editingProduct);
+      await axios.put(`${API_URL}/api/products/${editingProduct._id}`, editingProduct);
       alert("Product Updated");
       setEditingProduct(null);
       fetchData();

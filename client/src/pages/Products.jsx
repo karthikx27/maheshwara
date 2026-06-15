@@ -1,6 +1,6 @@
  import { useState, useEffect } from "react";
 import axios from "axios";
-
+import { API_URL } from "../config";
 function Products() {
   const [products, setProducts] = useState([]);
   const [searchTerm, setSearchTerm] = useState("");
@@ -12,7 +12,7 @@ function Products() {
 
   const fetchProducts = async () => {
     try {
-      const response = await axios.get("http://localhost:5000/api/products");
+      const response = await axios.get( `${API_URL}/api/auth/products`);
       setProducts(response.data);
     } catch (error) {
       console.log(error);
