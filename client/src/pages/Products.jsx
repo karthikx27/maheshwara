@@ -12,7 +12,7 @@ function Products() {
 
   const fetchProducts = async () => {
     try {
-      const response = await axios.get( `${API_URL}/api/auth/products`);
+      const response = await axios.get(`${API_URL}/api/products`);
       setProducts(response.data);
     } catch (error) {
       console.log(error);
